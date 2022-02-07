@@ -19,18 +19,30 @@ class CourseController extends Controller
     public function showAddCoursePage(){
         return view('courses.course-form');
     }
+    public function showEditCoursePage($id){
+        //$course = Course::find($id);
+        $course = Course::findOrFail($id);
+
+        return view('courses.course-form')
+            ->with('course', $course);;
+    }
 
     public function saveCourse(Request $request){
-        // $newCourse = new Course;
-        // $newCourse->name = $request->input('name');
-        // $newCourse->duration = $request->input('duration');
-        // $newCourse->course_id = $request->input('course_id');
 
-        // $newCourse->save();
+    }
+    public function updateCourse(Request $request){
+        $course = Course::findOrFail( $request->input('id') );
+        $course = new Course;
+        $course->name = $request->input('name');
+        $course->duration = $request->input('duration');
+        $course->course_id = $request->input('course_id');
 
-        $data = $request->all();
-        unset($data['_token']);
-        Course::create($data);
+        $course->save();
+
+        //$course->save();
+        // $data = $request->all();
+        // unset($data['_token']);
+        // Course::create($data);
 
         return redirect('/courses');
         //  $request->input()

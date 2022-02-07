@@ -20,9 +20,16 @@ Route::get('/', function () {
 
 Route::get('/courses', [CourseController::class, 'showAllCourses']);
 Route::get('/courses/add', [CourseController::class, 'showAddCoursePage']);
+//CRUD
+Route::get('/courses/{id}/edit', [CourseController::class, 'showEditCoursePage']);
+Route::patch('/courses', [CourseController::class, 'updateCourse']);
+//CRUD
 Route::post('/courses', [CourseController::class, 'saveCourse']);
 
+
 Route::get('/programmes', [ProgrammeController::class, 'showProgrammes']);
+Route::get('/programmes/add', [ProgrammeController::class, 'showAddProgrammePage']);
+Route::post('/programmes', [ProgrammeController::class, 'saveProgrammes']);
 
 
 
