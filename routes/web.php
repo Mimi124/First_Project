@@ -20,16 +20,21 @@ Route::get('/', function () {
 
 Route::get('/courses', [CourseController::class, 'showAllCourses']);
 Route::get('/courses/add', [CourseController::class, 'showAddCoursePage']);
-//CRUD
-Route::get('/courses/{id}/edit', [CourseController::class, 'showEditCoursePage']);
-Route::patch('/courses', [CourseController::class, 'updateCourse']);
-//CRUD
+Route::get('/courses/{id}/edit', [CourseController::class, 'showEditCoursePage'])->name('updateCourse');
 Route::post('/courses', [CourseController::class, 'saveCourse']);
+Route::put('/courses', [CourseController::class, 'updateCourse']);
+Route::patch('/courses', [CourseController::class, 'updateCourse']);
+Route::delete('/courses', [CourseController::class, 'deleteCourse']);
+
 
 
 Route::get('/programmes', [ProgrammeController::class, 'showProgrammes']);
 Route::get('/programmes/add', [ProgrammeController::class, 'showAddProgrammePage']);
+
 Route::post('/programmes', [ProgrammeController::class, 'saveProgrammes']);
+Route::get('/programmes/{id}/edit', [ProgrammeController::class, 'showEditProgrammePage'])->name('updateProgrammes');;
+Route::patch('/programmes', [ProgrammeController::class, 'updateProgrammes']);
+Route::delete('/programmes', [ProgrammeController::class, 'deleteProgramme']);
 
 
 

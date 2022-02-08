@@ -67,6 +67,8 @@
 <!-- Begin page content -->
 <main class="flex-shrink-0">
   <div class="container pt-5 mt-5">
+          @include('common.alert')
+          @include('common.errors')
           @yield('content')
   </div>
 </main>

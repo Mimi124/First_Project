@@ -15,8 +15,8 @@ class CreateProgrammesTable extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
-            $table->string('name',100);
-            $table->string('course_id',20);
+            $table->string('name',100)->unique();
+            $table->string('course_id',20)->unique();
             $table->integer('duration');
             $table->timestamps();
         
