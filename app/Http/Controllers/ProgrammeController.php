@@ -32,6 +32,12 @@ public function saveProgrammes(Request $request){
         'name' => 'required|min:10|max:100|unique:programmes,name',
         'programme_id' => 'required|min:6|max:20|unique:programmes,programme_id',
         'duration'=> 'required|max:35'
+    ],[
+        // custom messages
+        'unique' => 'This :attribute already exist'
+    ],[
+        // custom attribute names
+        'name' => 'Programme name',
     ]);
 
     $newProgramme = new Programmes;
