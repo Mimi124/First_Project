@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Programmes;
+use App\Models\Course;
 
 class ProgrammeController extends Controller
 {
@@ -12,17 +13,29 @@ class ProgrammeController extends Controller
         $allProgrammes = Programmes::all();
         return view('programmes.list', ['programmes' => $allProgrammes]);
 }
+
+public function showOneProgramme($id){
+    $programme = Programmes::findOrFail($id);
+  // return view('courses.list', ['courses' => $allCourses]);
+  return view('programmes.show')
+          ->with('programme', $programme);
+}
+
 public function showAddProgrammePage(){
+    $allCourses = Course::all();
     return view('programmes.programme-form')
              ->with('programmes', new Programmes)
+             ->with('courses',$allCourses)
              ->with('edit', false);
    
 }
-public function showEditCoursePage($id){
-    $programmes = Programmes::findOrFail($id);
+public function showEditProgrammePage($id){
+    $programme = Programmes::findOrFail($id);
+    $allCourses = Course::all();
     return view('programmes.programme-form')
      ->with('edit', true)
-     ->with('programmes', $programmes);
+     ->with('courses',$allCourses)
+     ->with('programmes', $programme);
 }
 
 
@@ -45,6 +58,7 @@ public function saveProgrammes(Request $request){
     $newProgramme->duration = $request->input('duration');
     $newProgramme->programme_id = $request->input('programme_id');
     $newProgramme->save();
+    $newProgramme->courses()->sync($request->input('courses'));
     session()->flash('alert',$newProgramme->name. 'Created Successfully');
 
 
@@ -57,20 +71,21 @@ public function saveProgrammes(Request $request){
     // dd($newCourse);
 }
 public function updateProgrammes(Request $request){
-    $programmes = Programmes::findOrFail( $request->input('id'));
-    $programmes->name = $request->input('name');
-    $programmes->duration = $request->input('duration');
-    $programmes->programme_id = $request->input('programme_id');
-    $programmes->save();
-    session()->flash('alert',$programmes->name. ' Updated Successfully');
+    $programme = Programmes::findOrFail( $request->input('id'));
+    $programme->name = $request->input('name');
+    $programme->duration = $request->input('duration');
+    $programme->programme_id = $request->input('programme_id');
+    $programme->save();
+    $programme->courses()->sync($request->input('courses'));
+    session()->flash('alert',$programme->name. ' Updated Successfully');
 
     return redirect('/programmes');
 
 }
 public function deleteProgramme(Request $request){
-    $programmes = Programmes::findOrFail( $request->input('id'));
-    $programmes->delete();
-    session()->flash('alert', $programmes->name. ' deleted successfully');
+    $programme = Programmes::findOrFail( $request->input('id'));
+    $programme->delete();
+    session()->flash('alert', $programme->name. ' deleted successfully');
     return redirect('/programmes');
 }
 

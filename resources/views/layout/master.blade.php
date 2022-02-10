@@ -45,12 +45,18 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/students">Students</a>
+          <li class="nav-item">
+            
           <li class="nav-item">
             <a class="nav-link" href="/courses">Courses</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/programmes">Programmes</a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>
           </li>
@@ -72,6 +78,7 @@
           @yield('content')
   </div>
 </main>
+
 
 <footer class="footer mt-auto py-3 bg-light">
   <div class="container">

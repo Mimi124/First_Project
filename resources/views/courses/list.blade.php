@@ -6,12 +6,13 @@
 <div>
     <a href="/courses/add" class="btn btn-dark my-5">Add Course</a>
 </div>
-  <table class="table">
+  <table class="table table-success table-bordered">
   <thead>
     <tr>
       <th scope="col">Course Name</th>
       <th scope="col">Course ID</th>
       <th scope="col">Duration</th>
+      <th scope="col">Programmes</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -21,6 +22,10 @@
         <th scope="row">{{$course->name}}</th>
         <td>{{$course->course_id}}</td>
         <td>{{$course->duration}} day(s)</td>
+        <td>
+          @foreach ($course->programmes as $programmes)
+          <a href="{{route('viewProgramme',['id'=>$programmes->id])}}">{{ $programmes->name }}</a>
+      @endforeach
         <td>
             <a type="button"
             href="{{route('updateCourse', ['id' => $course->id])}}"

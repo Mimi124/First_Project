@@ -26,7 +26,7 @@
 
   <div class="mb-3">
     <label for="programme_id" class="form-label">Programme ID</label>
-    <input type="text" required minlength="10" maxlength="100" class="form-control @error('programme_id') is-invalid @enderror" name="programme_id"
+    <input type="text" required minlength="3" maxlength="100" class="form-control @error('programme_id') is-invalid @enderror" name="programme_id"
     value="{{old('programme_id') ? old('programme_id') : $programmes->programme_id}}" >
     @error('programme_id')
      <div class="invalid-feedback">{{ $message }}</div
@@ -42,6 +42,19 @@
      <div class="invalid-feedback">{{ $message }}</div>
     @enderror
   </div>
+  <div class="mb-3">
+    Select Course(s)
+  @foreach ($courses as $course)
+    <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="{{$course->id}}" name="course[]" 
+    @if($programmes->courses->contains($course)) checked @endif>
+    <label class="form-check-label" for="course">
+    {{$course->name}} ({{$course->course_id}})
+    </label>
+    </div>
+  @endforeach
+  </div>
+  
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @endsection

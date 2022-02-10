@@ -4,23 +4,30 @@
 
 @section('content')
 <a href="/programmes/add" class="btn btn-dark my-5">Add Programme</a>
-  <table class="table">
+  <table class="table table-striped table-hover">
   <thead>
     <tr>
       <th scope="col">Programme Name</th>
       <th scope="col">Programme ID</th>
       <th scope="col">Duration</th>
+      <th scope="col">Courses</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
-      @foreach ($programmes as $programmes)
+      @foreach ($programmes as $programme)
       <tr>
-        <th scope="row">{{$programmes->name}}</th>
-        <td>{{$programmes->programme_id}}</td>
-        <td>{{$programmes->duration}} day(s)</td>
+        <th scope="row">{{$programme->name}}</th>
+        <td>{{$programme->programme_id}}</td>
+        <td>{{$programme->duration}} day(s)</td>
         <td>
-          <a type="button" href="{{route('updateProgrammes', ['id' => $programmes->id])}}" class="btn btn-dark">Edit</a>
-          <button type="button" onclick="openModal('{{$programmes->name}}', '{{$programmes->id}}')" class="btn btn-success"
+          @foreach ($programme->courses as $course)
+            <a href="{{route('viewCourse',['id'=>$course->id])}}">{{$course->name}}</a>
+          @endforeach
+      </td>
+        <td>
+          <a type="button" href="{{route('updateProgrammes', ['id' => $programme->id])}}" class="btn btn-dark">Edit</a>
+          <button type="button" onclick="openModal('{{$programme->name}}', '{{$programme->id}}')" class="btn btn-success"
           data-bs-toggle="modal"
           data-bs-target="#deleteProgrammeModal">Delete</button>
       </td>
