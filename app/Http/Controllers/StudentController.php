@@ -90,7 +90,7 @@ class StudentController extends Controller
     public function deleteStudent(Request $request){
         $student = Student::findOrFail( $request->input('id'));
         $student->delete();
-        session()->flash('alert', $student->name. ' deleted successfully');
+        session()->flash('alert', $student->fullname. ' deleted successfully');
         return redirect('/students');
     }
 }

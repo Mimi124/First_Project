@@ -7,7 +7,7 @@
 <div>
   <a href="/students/add" class="btn btn-dark my-5">Add Student</a>
 </div>
-  <table class="table table-success table-striped">
+  <table class="table table-success table-bordered">
   <thead>
     <tr>
       <th scope="col">Student Name</th>
