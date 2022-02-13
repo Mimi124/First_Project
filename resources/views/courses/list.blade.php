@@ -6,6 +6,19 @@
 <div>
     <a href="/courses/add" class="btn btn-dark my-5">Add Course</a>
 </div>
+
+<form class="d-flex my-3" method="GET" action="{{route('showAllCourses')}}" >
+  <input
+  class="form-control me-2"
+  type="search"
+  name="search"
+  placeholder="Type Course name or ID to search"
+  aria-label="Search">
+  <button class="btn btn-outline-success" type="submit">
+      Search
+  </button>
+</form>
+
   <table class="table table-success table-bordered">
   <thead>
     <tr>
@@ -42,6 +55,7 @@
       @endforeach
   </tbody>
 </table>
+{{$courses->links()}}
 
  <form action="/courses" name="delete_form" method="POST">
     @method('DELETE')

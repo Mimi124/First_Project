@@ -4,10 +4,22 @@
 
 @section('content')
 
-<div>
+
   <a href="/students/add" class="btn btn-dark my-5">Add Student</a>
-</div>
-  <table class="table table-success table-bordered">
+
+  <form class="d-flex my-3" method="GET" action="{{route('showAllStudents')}}" >
+    <input
+    class="form-control me-2"
+    type="search"
+    name="search"
+    placeholder="Type Student name or ID to search"
+    aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">
+        Search
+    </button>
+  </form>
+
+  <table class="table table-success table-striped">
   <thead>
     <tr>
       <th scope="col">Student Name</th>
@@ -18,14 +30,12 @@
     </tr>
   </thead>
   <tbody>
-    <tbody>
       @foreach ($students as $student)
       <tr>
         <th scope="row">{{$student->fullname}}</th>
         <td>{{$student->student_id}}</td>
         <td>{{$student->age}}</td>
         <td>{{$student->registeredProgramme->name}}</td>
-        <td>
             <td>
             <a type="button"
             href="{{route('updateStudent', ['id' => $student->id])}}" class="btn btn-dark">Edit</a>
@@ -34,7 +44,7 @@
             class="btn btn-secondary">View</a>
 
             <button type="button"
-            onclick="openModal('{{$student->fullname}}', '{{$student->id}}')"
+            onclick="openModal('{{$student->name}}', '{{$student->id}}')"
             class="btn btn-success"
             data-bs-toggle="modal"
             data-bs-target="#deleteStudentModal">Delete</button>
@@ -42,8 +52,9 @@
       </tr>
 
       @endforeach
-  </tbody
-</table>
+    </tbody>
+  </table>
+  {{$students->links()}}
 
  <form action="/students" name="delete_form" method="POST">
     @method('DELETE')

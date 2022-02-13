@@ -9,9 +9,14 @@ use App\Models\Programmes;
 class StudentController extends Controller
 {
     //
-        public function showAllStudents() {
-        $allStudent = Student::all();
-        // return view('courses.list', ['courses' => $allCourses]);
+            public function showAllStudents(Request $request) {
+            $searchTerm = $request->query('search');
+             if($searchTerm == null){
+                 $allStudent = Student::paginate(10);
+             } else {
+                  $allStudent = Student::where('name','like', "%{$searchTerm}%")
+                  ->orWhere('student_id','like', "%{$searchTerm}%")->paginate(10);
+             }
         return view('students.list')
                 ->with('students', $allStudent);
     }
@@ -88,9 +93,10 @@ class StudentController extends Controller
     }
 
     public function deleteStudent(Request $request){
+        dd($request);
         $student = Student::findOrFail( $request->input('id'));
         $student->delete();
-        session()->flash('alert', $student->fullname. ' deleted successfully');
+        session()->flash('alert', $student->name. ' deleted successfully');
         return redirect('/students');
     }
 }

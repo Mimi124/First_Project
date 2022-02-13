@@ -36,7 +36,7 @@
   <div class="mb-3">
     <label for="duration" class="form-label">Duration</label>
     <input type="number" required
-    min="10" max="35" class="form-control @error('duration') is-invalid @enderror" name="duration"
+   class="form-control @error('duration') is-invalid @enderror" name="duration"
     value="{{old('name') ? old('duration') : $programmes->duration}}" >
     @error('duration')
      <div class="invalid-feedback">{{ $message }}</div>

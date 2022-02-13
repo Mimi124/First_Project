@@ -4,6 +4,19 @@
 
 @section('content')
 <a href="/programmes/add" class="btn btn-dark my-5">Add Programme</a>
+
+<form class="d-flex my-3" method="GET" action="{{route('showProgrammes')}}" >
+  <input
+  class="form-control me-2"
+  type="search"
+  name="search"
+  placeholder="Type programme name or ID to search"
+  aria-label="Search">
+  <button class="btn btn-outline-success" type="submit">
+      Search
+  </button>
+</form>
+
   <table class="table table-striped table-hover">
   <thead>
     <tr>
@@ -37,6 +50,7 @@
       @endforeach
   </tbody>
 </table>
+{{$programmes->links()}}
 
 <form action="/programmes" name="delete_form" method="POST">
   @method('DELETE')

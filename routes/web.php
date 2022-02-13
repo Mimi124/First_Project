@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 //courses
 Route::prefix('/courses')->group(function(){
-Route::get('/', [CourseController::class, 'showAllCourses']);
+Route::get('/', [CourseController::class, 'showAllCourses'])->name('showAllCourses');
 Route::get('/add', [CourseController::class, 'showAddCoursePage']);
 Route::get('/{id}', [CourseController::class, 'showOneCourse'])->name('viewCourse');
 
@@ -34,7 +34,7 @@ Route::delete('/', [CourseController::class, 'deleteCourse']);
 });
 //Programmes
 Route::prefix('/programmes')->group(function(){
-Route::get('/', [ProgrammeController::class, 'showProgrammes']);
+Route::get('/', [ProgrammeController::class, 'showProgrammes'])->name('showProgrammes');
 Route::get('/add', [ProgrammeController::class, 'showAddProgrammePage']);
 Route::get('/{id}', [ProgrammeController::class, 'showOneProgramme'])->name('viewProgramme');
 
@@ -55,7 +55,7 @@ Route::delete('/', [ProgrammeController::class, 'deleteProgramme']);
 
 // 
 Route::prefix('/students')->group(function(){
-    Route::get('/', [StudentController::class, 'showAllStudents']);
+    Route::get('/', [StudentController::class, 'showAllStudents'])->name('showAllStudents');
      Route::get('/add', [StudentController::class, 'showAddStudentPage']);
     Route::get('/{id}', [StudentController::class, 'showOneStudent'])->name('viewStudent');
 

@@ -9,10 +9,14 @@ use App\Models\Programmes;
 class CourseController extends Controller
 {
     //
-
-    public function showAllCourses() {
-        $allCourses = Course::all();
-        // return view('courses.list', ['courses' => $allCourses]);
+    public function showAllCourses(Request $request) {
+        $searchTerm = $request->query('search');
+         if($searchTerm == null){
+             $allCourses = Course::paginate(10);
+         } else {
+              $allCourses = Course::where('name','like', "%{$searchTerm}%")
+              ->orWhere('course_id','like', "%{$searchTerm}%")->paginate(10);
+         }
         return view('courses.list')
                 ->with('courses', $allCourses);
     }
@@ -50,8 +54,8 @@ class CourseController extends Controller
         // 3rd arg -> attribute names
         $request->validate([
             'name' => 'required|min:10|max:100|unique:courses,name',
-            'course_id' => 'required|min:6|max:20|unique:courses,course_id',
-            'duration'=> 'required|max:35',
+            'course_id' => 'required|min:3|max:20|unique:courses,course_id',
+            'duration'=> 'required',
             'programmes' => 'sometimes|exists:programmes,id'
         ],[
             // custom messages
@@ -87,6 +91,7 @@ class CourseController extends Controller
     }
 
     public function deleteCourse(Request $request){
+       // dd($request);
         $course = Course::findOrFail( $request->input('id'));
         $course->delete();
         session()->flash('alert', $course->name. ' deleted successfully');

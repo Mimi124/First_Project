@@ -31,7 +31,7 @@
   <div class="mb-3">
     <label for="course_id" class="form-label">Course ID</label>
     <input type="text" required
-    minlength="4" maxlength="20"
+    minlength="3" maxlength="20"
     class="form-control @error('course_id') is-invalid @enderror"
     name="course_id"
     value="{{old('course_id') ? old('course_id') : $course->course_id}}" >
@@ -43,7 +43,6 @@
   <div class="mb-3">
     <label for="duration" class="form-label">Duration (in days)</label>
     <input type="number" required
-    min="10" max="35"
     class="form-control @error('duration') is-invalid @enderror"
     name="duration"
     value="{{old('name') ? old('duration') : $course->duration}}" >

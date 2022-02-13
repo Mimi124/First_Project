@@ -9,8 +9,15 @@ use App\Models\Course;
 class ProgrammeController extends Controller
 {
     //
-    public function showProgrammes() {
-        $allProgrammes = Programmes::all();
+            public function showProgrammes(Request $request) {
+            $searchTerm = $request->query('search');
+             if($searchTerm == null){
+                 $allProgrammes = Programmes::paginate(10);
+             } else {
+                  $allProgrammes = Programmes::where('name','like', "%{$searchTerm}%")
+                  ->orWhere('programme_id','like', "%{$searchTerm}%")->paginate(10);
+             }
+ 
         return view('programmes.list', ['programmes' => $allProgrammes]);
 }
 
@@ -43,8 +50,8 @@ public function saveProgrammes(Request $request){
 
     $request->validate([
         'name' => 'required|min:10|max:100|unique:programmes,name',
-        'programme_id' => 'required|min:6|max:20|unique:programmes,programme_id',
-        'duration'=> 'required|max:35'
+        'programme_id' => 'required|min:3|max:20|unique:programmes,programme_id',
+        'duration'=> 'required'
     ],[
         // custom messages
         'unique' => 'This :attribute already exist'
