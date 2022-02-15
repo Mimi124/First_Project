@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\StudentController;
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//MANY TO MANY RELATIONSHIP - JUNCTION TABLE
 
 Route::get('/', function () {
     return view('layout.master');
@@ -45,15 +45,6 @@ Route::delete('/', [ProgrammeController::class, 'deleteProgramme']);
 });
 
 //Students
-// Route::get('/students', [StudentController::class, 'showAllStudents']);
-// Route::get('/students/add', [StudentController::class, 'showAddStudentPage']);
-// Route::get('/students/{id}', [StudentController::class, 'showOneStudent'])->name('viewProgramme');
-
-// Route::post('/students', [StudentController::class, 'saveStudent']);
-// Route::put('/students', [StudentController::class, 'updateStudent']);
-// Route::get('/students/{id}/edit', [StudentController::class, 'showEditStudentPage'])->name('updateProgrammes');;
-
-// 
 Route::prefix('/students')->group(function(){
     Route::get('/', [StudentController::class, 'showAllStudents'])->name('showAllStudents');
      Route::get('/add', [StudentController::class, 'showAddStudentPage']);
@@ -65,6 +56,12 @@ Route::prefix('/students')->group(function(){
     Route::delete('/', [StudentController::class, 'deleteStudent']);
 });
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-
+require __DIR__.'/auth.php';
