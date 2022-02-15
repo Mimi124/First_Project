@@ -88,15 +88,15 @@ class StudentController extends Controller
         $student->contact= $request->input('contact');
         $student->programme_id= $request->input('programme_id');
         $student->save();
-        session()->flash('alert', $student->name. ' updated successfully');
+        session()->flash('alert', $student->firstname. ' updated successfully');
         return redirect('/students');
     }
 
     public function deleteStudent(Request $request){
-        dd($request);
+        // dd($request);
         $student = Student::findOrFail( $request->input('id'));
         $student->delete();
-        session()->flash('alert', $student->name. ' deleted successfully');
+        session()->flash('alert', $student->firstname. ' deleted successfully');
         return redirect('/students');
     }
 }

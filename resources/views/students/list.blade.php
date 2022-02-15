@@ -74,7 +74,7 @@ data-bs-keyboard="false">
       </div>
       <div class="modal-body">
         <p>
-            Are you sure you want to delete course :
+            Are you sure you want to delete student :
             <strong><em><span id="student_name_in_modal"></span></em></strong> ?
         </p>
       </div>
