@@ -10,7 +10,7 @@
     <h3>Add New Student</h3>
 @endif
 
-<form action="/students" method="POST">
+<form action="/students" method="POST" enctype="multipart/form-data">
     @csrf
     @if($edit)
     <input type="hidden" name="id" value="{{$student->id}}">
@@ -73,9 +73,10 @@
         <option selected="selected" value="">--SELECT GENDER</option>
         <option value="M">Male</option>
         <option value="F">Female</option>
+        <option value="OT">Other</option>
+        
     </select>
 </div>
-
 
 
   <div class="mb-3">
@@ -84,15 +85,27 @@
     min="10" max="35"
     class="form-control @error('contact') is-invalid @enderror"
     name="contact"
-    value="{{old('contact') ? old('contact') : $student->duration}}" >
+    value="{{old('contact') ? old('contact') : $student->contact}}" >
     @error('contact')
      <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
 
 <div class="mb-3">
-  Select Programme(s)
-   <select name="programme_id" id="programme_id" class=" mb-3 mt-3">
+  <label for="picture" class="form-label">Student Picture</label>
+  <input type="file" required
+  class="form-control @error('picture') is-invalid @enderror"
+  name="picture"
+  value="{{old('picture') ? old('picture') : $student->picture}}" >
+  @error('picture')
+   <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
+</div>
+
+<div class="mb-3">
+  <label class="form-label" for="programme_id">Select Programme</label>
+
+   <select name="programme_id" id="programme_id" class="form-select">
     <option >Select Programme</option>
 @foreach ($programmes as $programme)
   <option class="programme_id" type="dropdown" value="{{$programme->id}}"

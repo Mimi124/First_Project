@@ -16,13 +16,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', function () {
+    return view('layout.master');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
 Route::get('/', function () {
     return view('layout.master');
 });
 
 //courses
 Route::prefix('/courses')->group(function(){
-Route::get('/', [CourseController::class, 'showAllCourses'])->name('showAllCourses');
+Route::get('/', [CourseController::class, 'showAllCourses'])->middleware('auth')->name('showAllCourses');
 Route::get('/add', [CourseController::class, 'showAddCoursePage']);
 Route::get('/{id}', [CourseController::class, 'showOneCourse'])->name('viewCourse');
 
@@ -34,7 +49,7 @@ Route::delete('/', [CourseController::class, 'deleteCourse']);
 });
 //Programmes
 Route::prefix('/programmes')->group(function(){
-Route::get('/', [ProgrammeController::class, 'showProgrammes'])->name('showProgrammes');
+Route::get('/', [ProgrammeController::class, 'showProgrammes'])->middleware('auth')->name('showProgrammes');
 Route::get('/add', [ProgrammeController::class, 'showAddProgrammePage']);
 Route::get('/{id}', [ProgrammeController::class, 'showOneProgramme'])->name('viewProgramme');
 
@@ -46,7 +61,7 @@ Route::delete('/', [ProgrammeController::class, 'deleteProgramme']);
 
 //Students
 Route::prefix('/students')->group(function(){
-    Route::get('/', [StudentController::class, 'showAllStudents'])->name('showAllStudents');
+    Route::get('/', [StudentController::class, 'showAllStudents'])->middleware('auth')->name('showAllStudents');
      Route::get('/add', [StudentController::class, 'showAddStudentPage']);
     Route::get('/{id}', [StudentController::class, 'showOneStudent'])->name('viewStudent');
 
@@ -55,13 +70,5 @@ Route::prefix('/students')->group(function(){
     Route::put('/', [StudentController::class, 'updateStudent']);
     Route::delete('/', [StudentController::class, 'deleteStudent']);
 });
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

@@ -25,6 +25,7 @@
       <th scope="col">Student Name</th>
       <th scope="col">Student ID</th>
       <th scope="col">Student Age</th>
+      <th scope="col">Student Image</th>
       <th scope="col">Registered Programme</th>
       <th scope="col">Actions</th>
     </tr>
@@ -35,7 +36,14 @@
         <th scope="row">{{$student->fullname}}</th>
         <td>{{$student->student_id}}</td>
         <td>{{$student->age}}</td>
+        <td>
+          <img src="{{asset($student->picture)}}" 
+            style="height:100px"
+          class="img-thumbnail rounded" alt="">
+        </td>
+
         <td>{{$student->registeredProgramme->name}}</td>
+
             <td>
             <a type="button"
             href="{{route('updateStudent', ['id' => $student->id])}}" class="btn btn-dark">Edit</a>

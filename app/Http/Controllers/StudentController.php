@@ -50,10 +50,11 @@ class StudentController extends Controller
         $request->validate([
             'firstname' =>'required',
             'lastname' =>'required',
-            'date_of_birth' =>'required',
+            'date_of_birth' =>'required|date',
             'student_id' => 'required|min:6|max:20|unique:students,student_id',
-            'gender'=> 'required',
-            'contact' => 'required',
+            'gender'=> 'required|',
+            'contact' => 'required|numeric',
+            'picture' =>'image|lt.700'
         ],[
             // custom messages
             'unique' => 'This :attribute is already registered in the system'
@@ -62,6 +63,8 @@ class StudentController extends Controller
             'student_id' => 'Student ID',
         ]);
 
+        $path = $request->file('picture')->store('images');
+
         $newStudent = new Student;
         $newStudent->firstname = $request->input('firstname');
         $newStudent->lastname = $request->input('lastname');
@@ -69,7 +72,10 @@ class StudentController extends Controller
         $newStudent->student_id= $request->input('student_id');
         $newStudent->gender = $request->input('gender');
         $newStudent->contact = $request->input('contact');
+        $newStudent->picture = $path;
         $newStudent->programme_id = $request->input('programme_id');
+
+        
 
         $newStudent->save();
 
@@ -99,7 +105,7 @@ class StudentController extends Controller
         session()->flash('alert', $student->firstname. ' deleted successfully');
         return redirect('/students');
     }
-}
 
+}
 
 
